@@ -5,18 +5,18 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./code:/var/www/html
+      - ./.docker/nginx/conf.d/nginx.conf:/etc/nginx/nginx.conf
+      - ./www:/var/www/html
     depends_on:
       - php
   php:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./.docker/php/Dockerfile
     extra_hosts:
       - "host.docker.internal:host-gateway"  
     volumes:
-      - ./code:/var/www/html
+      - ./www:/var/www/html
 
       
   mariadb:
